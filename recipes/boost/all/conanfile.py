@@ -453,8 +453,7 @@ class BoostConan(ConanFile):
                 self.info.options.python_version = self._python_version
 
     def source(self):
-        tools.get(**self.conan_data["sources"][self.version])
-        tools.rename("boost_%s" % self.version.replace(".", "_"), self._source_subfolder)
+        tools.get(**self.conan_data["sources"][self.version], destination=self._source_subfolder, strip_root=True)
         for patch in self.conan_data.get("patches", {}).get(self.version, []):
             tools.patch(**patch)
 
